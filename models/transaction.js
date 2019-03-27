@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Transaction.associate = function(models) {
     Transaction.belongsTo(models.User)
-    // Transaction.belongsToMany(models.Product)
+    Transaction.belongsToMany(models.Product, {through: models.TransactionProduct})
   };
   return Transaction;
 };
