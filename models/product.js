@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
   Product.associate = function(models) {
     // associations can be defined here
     Product.belongsTo(models.Category)
-    Product.belongsToMany(models.Tag , {through: 'ProductTag'})
-    Product.belongsToMany(models.Transaction , {through: 'TransactionProduct'})
+    Product.belongsToMany(models.Tag, {through: 'ProductTags'})
+    Product.belongsToMany(models.Transaction, {through: 'TransactionProducts'})
   };
   return Product;
 };
