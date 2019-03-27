@@ -1,0 +1,28 @@
+.footer {
+    height: 100px;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #6d3580;
+    display: -webkit-flex;
+    vertical-align: middle;
+}
+.footer > p {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.elementPurple {
+    background: #6d3580;
+    color: white;
+}
+
+.purple-btn {
+    background: #6d3580;
+    color: white;
+}
+.purple-btn:hover {
+    background: #452152;
+    color: white;
+}
