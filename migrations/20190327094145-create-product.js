@@ -17,8 +17,20 @@ module.exports = {
       description: {
         type: Sequelize.TEXT
       },
+      quantity: {
+        type: Sequelize.INTEGER
+      },
+      brand: {
+        type: Sequelize.STRING
+      },
+      type: {
+        type: Sequelize.STRING
+      },
       imagePath: {
         type: Sequelize.STRING
+      },
+      CategoryId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
