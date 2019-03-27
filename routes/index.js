@@ -1,15 +1,13 @@
 const route = require('express').Router()
+const Model = require('../models')
 
 route.get('/', (req, res) => {
-    res.render('pages')
-})
-
-route.get('/products', (req, res) => {
-    res.json('LIST OF PRODUCTS FOR SALE')
-})
-
-route.get('/products/:id', (req, res) => {
-    res.json('DETAILS OF PRODUCTS FOR SALE')
+    Model.User.findAll({
+        include: [Model.Transaction]
+    })
+    .then(function(data){
+        res.send(data)
+    })
 })
 
 module.exports = route
