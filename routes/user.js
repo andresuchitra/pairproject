@@ -1,8 +1,13 @@
 const route = require('express').Router()
 const Model = require('../models')
 const bcrypt = require('bcryptjs')
-
-// SESSION
+require('dotenv').config();
+const request = require('request');
+const qs = require('querystring');
+const url = require('url');
+const randomString = require('randomstring');
+const csrfString = randomString.generate();
+const redirect_uri = process.env.HOST + '/redirect';
 const session = require('express-session')
 route.use(session({ secret: 'krunal', resave: false, saveUninitialized: true }));
 // SESSION
@@ -83,9 +88,26 @@ route.get('/', (req, res) => {
             .then(data => {
                 let id = req.session.userId
                 let dataValue = data.dataValues
-                res.render('./pages/users/index', { id, dataValue })
+                let github = req.session.github
+                res.render('./pages/users/index', { id, dataValue, github})
             })
-    } else {
+    } 
+    //if reques coming from Github access toket (received), we allow to stay in
+    else if(req.session.access_token) {
+        request.get({
+              url: 'https://api.github.com/user/public_emails',
+              headers: {
+                Authorization: 'token ' + req.session.access_token,
+                'User-Agent': 'Login-App'
+              }
+            }, (error, response, body) => {
+              res.send(
+                req.session.github ="Logged in via Github! Here's all your emails on GitHub: " +body
+              );
+            }
+        );
+    }
+    else {
         req.session.error = "You must log in!"
         res.redirect('/user/login')
     }
@@ -118,4 +140,20 @@ route.post('/:userId/edit', (req, res) => {
     })
     // res.send(req.params.userId)
 })
+
+//social media login, github
+route.get('/login/github', (req, res) => {
+    req.session.csrf_string = randomString.generate();
+  const githubAuth = 'https://github.com/login/oauth/authorize?' +
+    qs.stringify({
+      client_id: process.env.CLIENT_ID,
+      redirect_uri: redirect_uri,
+      state: req.session.csrf_string,
+      scope: ['user:email', 'read:user', 'repo:status', 'public_repo', 'notifications']
+    });
+  // redirect user to github user consent page
+  res.redirect(githubAuth);
+})
+
+
 module.exports = route

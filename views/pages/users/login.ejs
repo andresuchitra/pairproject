@@ -22,13 +22,18 @@
                 </div>
             </div>
             <div class="row">
-                <form method="POST" action="/user/login">
-                    <div class="col-6">
-                        Username: <input type="text" name="username"><br>
-                        Password: <input type="password" name="password"><br>
-                        <button type="submit" class="btn btn-lg purple-btn">Submit</button>
-                    </div>
-                </form>
+                <div class='col-2'>
+                    <form method="POST" action="/user/login">
+                        <div class="col-6">
+                            Username: <input type="text" name="username"><br>
+                            Password: <input type="password" name="password"><br>
+                            <button type="submit" class="btn btn-lg purple-btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div class='col-1 mx-5'>
+                    <a class="btn btn-dark" href="./login/github" style="height: 40px; width: 140px;">Login to Github</a>
+                </div>
             </div>
         </div>
     </div>
