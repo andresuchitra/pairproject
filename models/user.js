@@ -1,4 +1,6 @@
 'use strict';
+const bcrypt = require('bcryptjs')
+const salt = bcrypt.genSaltSync(10)
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     username: DataTypes.STRING,
@@ -10,10 +12,20 @@ module.exports = (sequelize, DataTypes) => {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     interests: DataTypes.TEXT
-  }, {});
+  }, {
+    hooks: {
+      beforeCreate: (user , options) => {
+        user.password = bcrypt.hashSync(user.password , salt)
+      },
+      beforeUpdate: (user, options) => {
+        user.password = bcrypt.hashSync(user.password , salt)
+      }
+    }
+  });  
   User.associate = function(models) {
     User.hasOne(models.Transaction)
-    
   };
+  
+  
   return User;
 };

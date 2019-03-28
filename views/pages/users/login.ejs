@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+</head>
+<%- include('../../partials/head', {title: 'PairCommerce : e-Commerce for PairProject'})%>
+
+<body>
+    <%- include ../../partials/header %>
+
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>LOGIN</h1>
+                    <%= anounce %>
+                    <%= error %>
+                </div>
+            </div>
+            <div class="row">
+                <form method="POST" action="/user/login">
+                    <div class="col-6">
+                        Username: <input type="text" name="username"><br>
+                        Password: <input type="password" name="password"><br>
+                        <button type="submit" class="btn btn-lg purple-btn">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <%- include ../../partials/footer %>
+</body>
+
+</html>
