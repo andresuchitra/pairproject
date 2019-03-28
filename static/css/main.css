@@ -1,8 +1,9 @@
 .footer {
     height: 100px;
     color: white;
-    position: fixed;
+    position: relative;
     bottom: 0;
+    left:0;
     width: 100%;
     background: #6d3580;
     display: -webkit-flex;
@@ -25,4 +26,40 @@
 .purple-btn:hover {
     background: #452152;
     color: white;
+}
+
+.maincontainer {
+    width: 75%;
+    margin-top: 40px;
+    margin-left: 170px;
+    margin-bottom: 70px;
+}
+
+.productTile {
+    background: red;
+    min-width: 200p;
+    width: 200px;
+    height: 200px;
+}
+
+.hiddenGallery {
+    display: none;
+}
+
+.productImgDiv {
+ height: 350px;
+}
+
+.productImg {
+    height: 200px;
+    width: 200px;
+}
+
+.productNameSpan {
+    text-decoration: none;
+}
+
+.detailImg {
+    height: 380px;
+    width: 320px;
 }

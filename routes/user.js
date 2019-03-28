@@ -62,13 +62,13 @@ route.post('/login', (req, res) => {
                     req.session.isBuyer = true
                     req.session.anounce = 'Hi! Welcome to our store!'
                     req.session.userId = data[0].id
-                    res.send(req.session.anounce)
                 } else if (data[0].type == 'admin') {
                     req.session.isAdmin = true
                     req.session.anounce = "Hi! Let's get to work!"
                     req.session.userId = data[0].id
-                    res.send(req.session.anounce)
                 }
+
+                res.redirect('/products')
             }
         })
         .catch(function (err) {
