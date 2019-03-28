@@ -14,7 +14,11 @@ module.exports = (csvFileName) => {
         })
         obj.createdAt = new Date
         obj.updatedAt = new Date
+
+        console.log(obj);
+        
         list.push(obj)
     })
+
     return list
 }

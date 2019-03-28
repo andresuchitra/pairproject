@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<%- include('../../partials/head', {title: 'Products'})%>
+
+<body>
+    <%- include ../../partials/header %>
+    <div class="container-fluid maincontainer" >
+        <div id="mainContainerChild" class="row">
+            <% pageData.items.forEach( item => {%>
+                <%- include('../../pages/products/gallery-item', {item: item})%>
+            <%})%>
+        </div>
+    </div>
+    <%- include ../../partials/footer %>
+</body>
+
+</html>
