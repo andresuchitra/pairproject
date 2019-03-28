@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark elementPurple">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
@@ -16,8 +17,15 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0 elementPurple">
-      <a class="btn mx-0 elementPurple" href="/login">Login</a>
-      <a class="btn mx-0 elementPurple" href="/register">Register</a>
+      <!-- condition if not logged in -->
+      <a class="btn mx-0 elementPurple" href="/user/login">Login</a>
+      <a class="btn mx-0 elementPurple" href="/user/register">Register</a>
+
+      <a class="btn mx-0 elementPurple" href="/user">Profile</a>
+      <a class="btn mx-0 elementPurple" href="/user/register">Logout</a>
+
+      <!-- else -->
+      <!-- <a class="btn mx-0 elementPurple" href="/user/:id">My Profile</a> -->
     </form>
   </div>
 </nav>

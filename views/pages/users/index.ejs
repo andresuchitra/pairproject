@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User</title>
+</head>
+<%- include('../../partials/head', {title: 'PairCommerce : e-Commerce for PairProject'})%>
+
+<body>
+    <%- include ../../partials/header %>
+
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>PROFILE</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    Username: <%= dataValue.username %><br>
+                    Email: <%= dataValue.email %><br>
+                    Address: <%= dataValue.address %><br>
+                    First Name: <%= dataValue.firstName %><br>
+                    Last Name: <%= dataValue.lastName %><br>
+                </div>
+            </div>
+            <a href="/user/<%=id%>/edit"><button type="submit" class="btn btn-lg purple-btn">Update my profile</button></a>
+
+        </div>
+    </div>
+
+    <%- include ../../partials/footer %>
+</body>
+
+</html>
