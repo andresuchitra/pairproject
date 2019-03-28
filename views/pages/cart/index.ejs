@@ -12,8 +12,9 @@
                         <th scope="col">No</th>
                         <th scope="col">Picture</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Unit Price</th>
                         <th scope="col">Quantity</th>
+                        <th scope="col">Total Amount</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,15 +24,25 @@
                         </th>
                         <td><img class="img-fluid img-thumbnail productImg" src="<%= item.imagePath %>"  alt=""></td>
                         <td><%= item.name%></td>
-                        <td><%= item.price%></td>
-                        <td><%= item.quantity%></td>
+                        <td><%= item.getPriceFormat()%></td>
+                        <td><%= item.dataValues.cartQuantity%></td>
+                        <td><%= item.dataValues.totalAmount %></td>
                     </tr>
                     <% }) %>
                 </tbody>
             </table>
         </div>
+        <hr>
+        <div class="row">
+            <div class='col-6'>
+                <h2>Total</h2>
+            </div>
+            <div class='col-6' style="text-align: right">
+                <h2><%= items.totalAmountCurrencyFormat %></h2>
+            </div>
+        </div>
         <div class="row mt-3">
-            <form action="/" method="post">
+            <form action="/cart" method="post">
                 <button type="submit" class="btn btn-primary">Proceed to Buy</button>
                 <a href="/products" class="btn btn-danger">Cancel</a>
             </form>

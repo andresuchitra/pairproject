@@ -27,10 +27,30 @@ module.exports = (sequelize, DataTypes) => {
   Product.prototype.getPriceFormat = function (currency) {
     let IDR = 'IDR', USD ='USD'
     if(currency === 'USD') {
-      return `$ ${this.price.toFixed(2).toLocaleString('en')}`
+      return `$ ${Product.addThousandsSeparator(this.price.toFixed(2)).toLocaleString('en')}`
     }
 
-    return `Rp. ${this.price.toFixed(2).toLocaleString('en')}`
+    return `Rp. ${Product.addThousandsSeparator(this.price.toFixed(2)).toLocaleString('en')}`
   }
+
+
+  Product.getPriceFormat = function(amount, currency) {
+    if(currency === 'USD') {
+      return `$ ${Product.addThousandsSeparator(amount.toFixed(2)).toLocaleString('en')}`
+    }
+    return `Rp. ${Product.addThousandsSeparator(amount.toFixed(2)).toLocaleString('en')}`
+  }
+
+  Product.addThousandsSeparator = function(input) {
+    var output = input
+    if (parseFloat(input)) {
+        input = new String(input); 
+        var parts = input.split(".");
+        parts[0] = parts[0].split("").reverse().join("").replace(/(\d{3})(?!$)/g, "$1,").split("").reverse().join("");
+        output = parts.join(".");
+    }
+    return output;
+}
+
   return Product;
 };

@@ -14,19 +14,48 @@ route.use(session({
 // SESSION
 
 route.get('/', (req, res) => {
-    let items = []
+    let items = [], totalTransactionAmount = 0
 
     if (req.session.userId) {
         if (req.session.cartItems) {
-            items = req.session.cartItems
-            // res.json(items)
-            res.render('pages/cart/index', {items})
-        } else {
-            Product.findAll()
-                .then(items => {
-                    // res.json(items)
-                    res.render('pages/cart/index', {items})
+            let productIds = req.session.cartItems.map(x => x.productId)
+            let map = new Map()
+            req.session.cartItems.forEach(x => {
+                map.set(x.productId, x.quantity)
+            })
+            
+            console.log('current items ===> '+ map)
+
+            Product.findAll({
+                where: {
+                    id: productIds
+                }
+            })
+            .then((products)=> {
+                products.forEach(x => {
+                    x.dataValues.cartQuantity = map.get(x.id)
+                    x.dataValues.totalAmount = Product.getPriceFormat(x.dataValues.cartQuantity * x.price)
+                    totalTransactionAmount += x.dataValues.cartQuantity * x.price
+                    items.push(x)
                 })
+                //this parameter will be used in transaction/checkout page
+                items.totalTransactionAmount = totalTransactionAmount
+                items.totalAmountCurrencyFormat = Product.getPriceFormat(totalTransactionAmount)
+                //to pass to next page
+                req.session.cartProducts = items
+                req.session.cartProducts.totalAmountCurrencyFormat = items.totalAmountCurrencyFormat
+                req.session.totalTransactionAmount = totalTransactionAmount
+
+                res.render('pages/cart/index', {items})
+            })
+            .catch(err => {
+                req.session.error = err.messsage
+                res.redirect('/products');
+                
+            })
+        }
+        else {
+            res.redirect('/products')
         }
 
     } else {
@@ -52,44 +81,48 @@ route.post('/add/:id', (req, res) => {
             quantity: quantity
         }
         req.session.cartItems.push(data)
-        res.render('pages/cart', {items: req.session.cartItems})
-    } else {
-        // req.session.error = 'Please login first or register'
-        res.redirect('/products/' + productId)
     }
+    res.redirect('/products/' + productId)
 
 })
 
 route.post('/', (req, res) => {
     //read from session
-    let cartItems = req.session.cart
+    let cartProducts = req.session.cartProducts
 
-    if (cartItems) {
-        let productId, quantity;
+    if (cartProducts) {
         let userId = req.session.userId
 
         User.findByPk(userId)
-            .then(user => {
-                return user.addTransaction()
+        .then(user => {
+            return Transaction.create({
+                UserId: userId
             })
-            .then(transaction => {
-                cartItems.forEach(element => {
-                    Product.findByPk(element.productId)
-                        .then(price => {
-                            let amount = price * element.quantity
-                            transaction.addProducts({
-                                amount: amount,
-                                quantity: element.quantity
-                            })
-                        })
-                });
-            })
+        })
+        .then(transaction => {
+            console.log(cartProducts);
+            var promises = cartProducts.map(function(item){
+                let amount = item.price * item.cartQuantity
+                return transaction.addProduct(item.id, {through: {amount: amount, quantity: item.cartQuantity}})
+            });
+
+            return Promise.all(promises)
+        })
+        .then(function(results){
+            res.redirect('/cart/success')
+         })
+         .catch(err => {
+             console.log(err);
+         })
+
     } else if (!req.session.userId) {
         req.session.error = 'Unknown user id. Please register/login to access the cart'
         res.redirect('/products')
     }
 })
 
-
+route.get('/success', (req, res) => {
+    res.render('pages/cart/success')
+})
 
 module.exports = route
