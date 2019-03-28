@@ -7,5 +7,6 @@ module.exports = (sequelize, DataTypes) => {
   TransactionProducts.associate = function(models) {
     
   };
+  
   return TransactionProducts;
 };
