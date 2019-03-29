@@ -13,27 +13,35 @@
     <%- include ../../partials/header %>
 
     <div class="jumbotron">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <h1>EDIT PROFILE</h1>
-                    </div>
-                </div>
-                <div class="row">
-                    <form method="POST" action="/user/<%=userData.id%>/edit">
-                        <div class="col-6">
-                            First Name: <input type="text" name="firstName" value="<%= userData.firstName %>" required='true'><br>
-                            Last Name: <input type="text" name="lastName" value="<%= userData.lastName %>" required='true'><br>
-                            Address: <input type="text" name="address" value="<%= userData.address %>" required='true'><br>
-                            Phone: <input type="text" name="phone" value="<%= userData.phone %>" required='true'><br>
-                            Email: <input type="email" name="email" value="<%= userData.email %>" required='true'><br>
-                            Password: <input type="password" name="password" required='true'><br>
-                            <button type="submit" class="btn btn-lg purple-btn">Update</button>
-                        </div>
-                    </form>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1>EDIT PROFILE</h1>
+                    <%= typeof msg != 'undefined' ? msg : '' %>
                 </div>
             </div>
+            <div class="row">
+                <form action="/user/upload" method="POST" enctype="multipart/form-data">
+                    <div class="col-6">
+                        <input type="file" name="myImage" />
+                        <button type="submit" class="btn btn-lg purple-btn">Set profile picture</button>
+                    </div>
+                </form>
+                <form method="POST" action="/user/<%=userData.id%>/edit">
+                    <div class="col-6">
+                        First Name: <input type="text" name="firstName" value="<%= userData.firstName %>"
+                            required='true'><br>
+                        Last Name: <input type="text" name="lastName" value="<%= userData.lastName %>"
+                            required='true'><br>
+                        Address: <input type="text" name="address" value="<%= userData.address %>" required='true'><br>
+                        Phone: <input type="text" name="phone" value="<%= userData.phone %>" required='true'><br>
+                        Email: <input type="email" name="email" value="<%= userData.email %>" required='true'><br>
+                        <button type="submit" class="btn btn-lg purple-btn">Update</button>
+                    </div>
+                </form>
+            </div>
         </div>
+    </div>
     <%- include ../../partials/footer %>
 </body>
 

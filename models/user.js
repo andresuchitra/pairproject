@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING,
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    interests: DataTypes.TEXT
+    interests: DataTypes.TEXT,
+    imagePath: DataTypes.STRING
   }, {
     hooks: {
       beforeCreate: (user , options) => {

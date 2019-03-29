@@ -3,7 +3,9 @@ const app = express()
 const PORT = 3000
 const bodyParser = require('body-parser')
 const route = require('./routes')
+const multer = require('multer')
 
+app.use(express.static('public'))
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
