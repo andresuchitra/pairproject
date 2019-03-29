@@ -95,17 +95,16 @@ route.get('/', (req, res) => {
     //if reques coming from Github access toket (received), we allow to stay in
     else if(req.session.access_token) {
         request.get({
-              url: 'https://api.github.com/user/public_emails',
+              url: '"https://api.github.com/user"',
               headers: {
                 Authorization: 'token ' + req.session.access_token,
                 'User-Agent': 'Login-App'
               }
             }, (error, response, body) => {
-              res.send(
-                req.session.github ="Logged in via Github! Here's all your emails on GitHub: " +body
-              );
-            }
-        );
+                req.session.github ="Logged in via Github! Your data on GitHub: " +body
+                // res.json(req.session.github)
+                res.redirect('.')
+            });
     }
     else {
         req.session.error = "You must log in!"
@@ -144,13 +143,15 @@ route.post('/:userId/edit', (req, res) => {
 //social media login, github
 route.get('/login/github', (req, res) => {
     req.session.csrf_string = randomString.generate();
-  const githubAuth = 'https://github.com/login/oauth/authorize?' +
-    qs.stringify({
+  const githubAuth = 'https://github.com/login/oauth/authorize?' +  
+  qs.stringify({
       client_id: process.env.CLIENT_ID,
       redirect_uri: redirect_uri,
       state: req.session.csrf_string,
-      scope: ['user:email', 'read:user', 'repo:status', 'public_repo', 'notifications']
+      scope: ['user:email', 'read:user', 'repo:status', 'public_repo']
     });
+
+    console.log('========'+githubAuth);
   // redirect user to github user consent page
   res.redirect(githubAuth);
 })

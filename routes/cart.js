@@ -16,7 +16,7 @@ route.use(session({
 route.get('/', (req, res) => {
     let items = [], totalTransactionAmount = 0
 
-    if (req.session.userId) {
+    if (req.session.userId || req.session.access_token) {
         if (req.session.cartItems) {
             let productIds = req.session.cartItems.map(x => x.productId)
             let map = new Map()
@@ -74,7 +74,7 @@ route.post('/add/:id', (req, res) => {
         req.session.cartItems = []
     }
 
-    if (req.session && req.session.userId) {
+    if (req.session && (req.session.userId || req.session.access_token)) {
         let quantity = Number(req.body.quantity)
         let data = {
             productId: productId,
