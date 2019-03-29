@@ -4,7 +4,8 @@
   "description": "Pair Project E-Commerce Hacktiv8",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -19,11 +20,14 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "dotenv": "^7.0.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "multer": "^1.4.1",
     "pg": "^7.9.0",
+    "randomstring": "^1.1.5",
+    "request": "^2.88.0",
     "sequelize": "^5.2.1"
   }
 }

@@ -28,6 +28,19 @@ module.exports = {
         interests: 'sports,business,marvel',
         createdAt: new Date,
         updatedAt: new Date
+      },
+      {
+        username: 'aaa',
+        password: 1234,
+        email: 'aa@aa.com',
+        type: 'buyer',
+        address: 'East Blue',
+        phone: '90930394',
+        firstName: 'AAA',
+        lastName: 'BBB',
+        interests: 'sports,business,marvel',
+        createdAt: new Date,
+        updatedAt: new Date
       }
   ], {});
   },
