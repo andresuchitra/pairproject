@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     hooks: {
       beforeCreate: (user , options) => {
         user.password = bcrypt.hashSync(user.password , salt)
-        user.imagePath = '_img/oppo_f11.png'
+        user.imagePath = 'static/_img/oppo_f11.png'
       },
       beforeUpdate: (user, options) => {
         user.password = bcrypt.hashSync(user.password , salt)

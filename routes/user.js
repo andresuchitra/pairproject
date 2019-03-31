@@ -80,7 +80,7 @@ route.post('/register', (req, res) => {
                     password: req.body.password,
                     interests: req.body.interests.join(','),
                     type: 'buyer',
-                    imagePath: '_img/oppo_f11.png'
+                    imagePath: 'static/_img/oppo_f11.png'
                 })
             }
         })

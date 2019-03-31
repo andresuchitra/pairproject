@@ -1,5 +1,7 @@
 # pairproject
-Phase 1 Pair Project
+Phase 1 Pair Project - Backend Development
+
+Ecommerce Application using Node.JS, Express, PostgreSQL, Sequelizer ORM, and some Bootsraps.
 
 
-Ecommerce Application for Pair Project
+![PairCommerce](/static/_img/paircommerce.png)
